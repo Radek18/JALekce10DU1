@@ -11,7 +11,7 @@ public class Main {
             insertNewFlower(statement, "Bledule", "Bílá", true);
             insertNewFlower(statement, "Kopretina", "Bílá", false);
 
-            insertDescription(statement, "bledule", "Pozor na cibulku - obsahuje největší koncentraci jedu!");
+            updateDescription(statement, "bledule", "Pozor na cibulku - obsahuje největší koncentraci jedu!");
 
             deleteNoPoisonousFlowers(statement);
 
@@ -24,19 +24,19 @@ public class Main {
     }
 
     private static void insertNewFlower(Statement statement, String name, String colour, boolean isPoisonous) throws SQLException {
-        statement.executeUpdate("INSERT INTO flowers (name, colour, isPoisonous) VALUES ('" + name + "', '" + colour + "', " + isPoisonous + ")");
+        statement.executeUpdate("INSERT INTO flower (name, colour, isPoisonous) VALUES ('" + name + "', '" + colour + "', " + isPoisonous + ")");
     }
 
-    private static void insertDescription(Statement statement, String name, String description) throws SQLException {
-        statement.executeUpdate("UPDATE flowers SET description = '" + description + "'WHERE name = '" + name + "'");
+    private static void updateDescription(Statement statement, String name, String description) throws SQLException {
+        statement.executeUpdate("UPDATE flower SET description = '" + description + "'WHERE name = '" + name + "'");
     }
 
     private static void deleteNoPoisonousFlowers(Statement statement) throws SQLException {
-        statement.executeUpdate("DELETE FROM flowers WHERE isPoisonous = 0");
+        statement.executeUpdate("DELETE FROM flower WHERE isPoisonous = 0");
     }
 
     private static void printAllFlowers(Statement statement) throws SQLException {
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM flowers");
+        ResultSet resultSet = statement.executeQuery("SELECT name FROM flower");
         while (resultSet.next()) {
             System.out.println(resultSet.getString("name"));
         }
